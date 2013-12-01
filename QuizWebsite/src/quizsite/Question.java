@@ -55,7 +55,6 @@ public class Question {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("derrr, something fucked up");
 		} 
 		return false;
 	}
@@ -85,5 +84,9 @@ public class Question {
 
 	public String getAnswer(){
 		return answer;
+	}
+	
+	public void printString(){
+		System.out.println(question + "\n" + answer);
 	}
 }
