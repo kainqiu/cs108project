@@ -46,9 +46,9 @@ public class HistoryServlet extends HttpServlet {
 
 		Time elapsedTime = new Time(20000);
 		java.util.Date finishAt = new java.util.Date();
-		History.createHistory(1, 1, 20, elapsedTime, new java.sql.Date(finishAt.getTime()), con);
-		History.createHistory(3, 4, 40, elapsedTime, new java.sql.Date(finishAt.getTime()), con);
-		History.createHistory(1, 2, 40, elapsedTime, new java.sql.Date(finishAt.getTime()), con);
+		History.createHistory(1, 1, 20, elapsedTime, finishAt, con);
+		History.createHistory(3, 4, 40, elapsedTime, finishAt, con);
+		History.createHistory(1, 2, 40, elapsedTime, finishAt, con);
 	}
 
 }

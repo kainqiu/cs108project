@@ -90,11 +90,11 @@ for(int i = 0; i < histories.size(); i++) {
 <input type="submit" value = "Create quiz" />
 </form>
 
-<!--<form action="HistoryServlet" method="post">
+<form action="HistoryServlet" method="post">
 <input type="submit" value="Create History"/>
 </form>
 
---><!--<form action="FriendServlet" method="post">
+<!--<form action="FriendServlet" method="post">
 <input type="submit" value="Create Friend"/>
 </form>
 
@@ -102,5 +102,6 @@ for(int i = 0; i < histories.size(); i++) {
 <input type="submit" value="Create Mail"/>
 </form>
 
---></body>
+-->
+</body>
 </html>
