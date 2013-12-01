@@ -40,17 +40,19 @@ public class Quiz {
 
 	static public boolean registerQuiz(int qzID, DBConnection dbCon, User currentUser) {
 
-		Date createdAt = new Date();
-		int timeCreated = Integer.parseInt(createdAt.toString());
+		java.util.Date createdAt = new Date();
+		java.sql.Date time = new java.sql.Date(createdAt.getTime());
+		
+		//int timeCreated = Integer.parseInt(createdAt.toString());
 		int userID = currentUser.getId();
 		String key = currentUser.getUsername() + Integer.toString(qzID);
-		System.out.println("quizID: " + qzID + "userID: "  + userID + "timeCreated: " + timeCreated + "key: " + key);
+		System.out.println("quizID: " + qzID + "userID: "  + userID + "timeCreated: " + time + "key: " + key);
 
 		try {
 			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(quizID, userID, timeCreated, key) VALUES (?, ?, ?, ?)");
 			preStmt.setInt(1, qzID);
 			preStmt.setInt(2, userID);
-			preStmt.setInt(3, timeCreated);
+			preStmt.setDate(3, (java.sql.Date) time);
 			preStmt.setString(4, key);
 			preStmt.executeUpdate();
 			System.out.println("in registerQuiz");
