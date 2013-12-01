@@ -48,7 +48,7 @@ public class Quiz {
 		System.out.println("quizID: " + qzID + " userID: "  + userID + " timeCreated: " + param + " key: " + key + " title: " + title + " description: " + description);
 
 		try {
-			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(id, creatorId, createdAt, idKey, title, description) VALUES (?, ?, ?, ?)");
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(id, creatorId, createdAt, idKey, title, description) VALUES (?, ?, ?, ?, ?, ?)");
 			preStmt.setInt(1, qzID);
 			preStmt.setInt(2, userID);
 			preStmt.setObject(3, param);
