@@ -39,20 +39,11 @@ public class QuizServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {                
 
 		HttpSession session = request.getSession();
-		DBConnection con = (DBConnection) session.getAttribute("connection");
-		if(con == null) {
-			con = new DBConnection();
-			session.setAttribute("connection", con);
-		}
 
 		Quiz quiz = new Quiz();
 		quiz.setID();
-		int qzID = quiz.getID();
-		User currUser = (User) session.getAttribute("user");
-
-		Quiz.registerQuiz(qzID, con, currUser);
-
 		session.setAttribute("newQuiz", quiz);
+		
 		RequestDispatcher dispatch = request.getRequestDispatcher("createQuiz.jsp");
 		dispatch.forward(request, response);
 	}

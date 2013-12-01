@@ -14,9 +14,12 @@
 <h1> Create your quiz! </h1>
 
 <h2> Enter the title of your quiz: </h2>
+<p> Please have the title be less than 50 characters </p>
 <input type = "text" name = "quiztitle">
 
 <h2> Enter your overall description of the purpose of this quiz: </h2>
+<p> Please have the description be less than 200 characters </p>
+
 <input type="text" name = "quizdescription">
 
 <p> Click next to create your questions for this quiz: <input type="submit" value = "Next" /></p>

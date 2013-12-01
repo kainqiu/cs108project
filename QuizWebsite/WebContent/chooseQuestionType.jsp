@@ -12,13 +12,20 @@
 <body>
 
 <%
+
+DBConnection con = (DBConnection) session.getAttribute("connection");
+
 Quiz quiz = (Quiz) session.getAttribute("newQuiz");
+int qzID = quiz.getID();
 
 String title = request.getParameter("quiztitle");
+String description = request.getParameter("quizdescription");
 
 quiz.addQuizTitle(title);
-String description = request.getParameter("quizdescription");
 quiz.addQuizDescription(description);
+
+User currUser = (User) session.getAttribute("user");
+Quiz.registerQuiz(qzID, con, currUser, title, description);
 
 %>
 

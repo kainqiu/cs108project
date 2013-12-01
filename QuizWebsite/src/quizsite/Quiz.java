@@ -38,22 +38,24 @@ public class Quiz {
 		return quizID;
 	}
 
-	static public boolean registerQuiz(int qzID, DBConnection dbCon, User currentUser) {
+	public static boolean registerQuiz(int qzID, DBConnection dbCon, User currentUser, String title, String description) {
 
 		java.util.Date createdAt = new Date();
 		Object param = new java.sql.Timestamp(createdAt.getTime());
-		//java.sql.Datetime time = new java.sql.Date(createdAt.getTime());
 		
 		int userID = currentUser.getId();
 		String key = currentUser.getUsername() + Integer.toString(qzID);
-		System.out.println("quizID: " + qzID + "userID: "  + userID + "timeCreated: " + param + "key: " + key);
+		System.out.println("quizID: " + qzID + " userID: "  + userID + " timeCreated: " + param + " key: " + key + " title: " + title + " description: " + description);
 
 		try {
-			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(id, creatorId, createdAt, idKey) VALUES (?, ?, ?, ?)");
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(id, creatorId, createdAt, idKey, title, description) VALUES (?, ?, ?, ?, ?, ?)");
 			preStmt.setInt(1, qzID);
 			preStmt.setInt(2, userID);
 			preStmt.setObject(3, param);
 			preStmt.setString(4, key);
+			preStmt.setString(5, title);
+			preStmt.setString(6, description);
+
 			preStmt.executeUpdate();
 			System.out.println("in registerQuiz");
 			return true;
