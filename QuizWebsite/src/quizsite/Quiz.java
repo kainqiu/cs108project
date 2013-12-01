@@ -43,13 +43,12 @@ public class Quiz {
 		java.util.Date createdAt = new Date();
 		java.sql.Date time = new java.sql.Date(createdAt.getTime());
 		
-		//int timeCreated = Integer.parseInt(createdAt.toString());
 		int userID = currentUser.getId();
 		String key = currentUser.getUsername() + Integer.toString(qzID);
 		System.out.println("quizID: " + qzID + "userID: "  + userID + "timeCreated: " + time + "key: " + key);
 
 		try {
-			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(quizID, userID, timeCreated, key) VALUES (?, ?, ?, ?)");
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(id, creatorId, createdAt, idKey) VALUES (?, ?, ?, ?)");
 			preStmt.setInt(1, qzID);
 			preStmt.setInt(2, userID);
 			preStmt.setDate(3, (java.sql.Date) time);

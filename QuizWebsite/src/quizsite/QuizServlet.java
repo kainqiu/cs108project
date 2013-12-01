@@ -43,7 +43,6 @@ public class QuizServlet extends HttpServlet {
 		if(con == null) {
 			con = new DBConnection();
 			session.setAttribute("connection", con);
-			//System.out.println("con is NULL");
 		}
 
 		Quiz quiz = new Quiz();

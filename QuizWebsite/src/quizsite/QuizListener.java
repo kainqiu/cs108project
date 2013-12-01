@@ -27,9 +27,6 @@ public class QuizListener implements ServletContextListener, HttpSessionListener
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent arg0) {
-//    	Quiz quiz = new Quiz();
-//    	ServletContext session = arg0.getServletContext();
-//        session.setAttribute("quiz", quiz);
         // TODO Auto-generated method stub
     }
 

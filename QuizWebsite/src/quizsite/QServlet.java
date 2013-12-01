@@ -39,7 +39,7 @@ public class QServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Quiz qz = (Quiz) session.getAttribute("quiz");
+		Quiz qz = (Quiz) session.getAttribute("newQuiz");
 		DBConnection dbCon = (DBConnection) session.getAttribute("connection");
 		int qzID = qz.getID();
 		Question newQn;
