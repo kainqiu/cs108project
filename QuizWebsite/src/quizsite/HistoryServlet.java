@@ -45,10 +45,10 @@ public class HistoryServlet extends HttpServlet {
 		User currUser = (User) session.getAttribute("user");
 
 		Time elapsedTime = new Time(20000);
-		java.util.Date finishAt = new java.util.Date();
-		History.createHistory(1, 1, 20, elapsedTime, new java.sql.Date(finishAt.getTime()), con);
-		History.createHistory(3, 4, 40, elapsedTime, new java.sql.Date(finishAt.getTime()), con);
-		History.createHistory(1, 2, 40, elapsedTime, new java.sql.Date(finishAt.getTime()), con);
+		//java.util.Date finishAt = new java.util.Date();
+		History.createHistory(1, 1, 20, elapsedTime, con);
+		//History.createHistory(3, 4, 40, elapsedTime, con);
+		//History.createHistory(1, 2, 40, elapsedTime, con);
 	}
 
 }

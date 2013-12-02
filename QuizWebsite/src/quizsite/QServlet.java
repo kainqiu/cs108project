@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class QServlet
+ * serlvet for creating questions
  */
 @WebServlet("/QServlet")
 public class QServlet extends HttpServlet {
@@ -60,6 +61,7 @@ public class QServlet extends HttpServlet {
 		default: newQn = null;
 		break;
 		}
+		newQn.printString();
 		if(!newQn.equals(null)) qz.addQuestion(newQn);
 		Question.registerQuestion(qzID, Integer.parseInt(type), question, answer, MC, dbCon);
 

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -197,7 +198,7 @@ public class User {
 				int quizId = rs.getInt("quizId");
 				int score = rs.getInt("score");
 				Time elapsedTime = rs.getTime("elapsedTime");
-				java.sql.Date finishAt = rs.getDate("finishAt");
+				java.sql.Timestamp finishAt = (Timestamp) rs.getObject("finishAt");
 				History h = new History(quizId, score, elapsedTime, finishAt);
 				this.history.add(h);
 			}

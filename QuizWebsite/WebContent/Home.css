@@ -12,8 +12,10 @@ body {
 }
 
 .list_block {
-	width: 23%;
+	width: 20%;
+	height: 180px;
 	display: inline-block;
+	float: left;
 	border: 1px solid #cccccc;
 	padding: 5px;
 	-moz-border-radius: 5px;
@@ -21,10 +23,11 @@ body {
 	border-radius: 5px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	margin-right: 5px;
 }
 
 .msg {
-	width: 98%;
+	width: 88%;
 	display: inline-block;
 	border: 1px solid #cccccc;
 	padding: 5px;
@@ -34,7 +37,7 @@ body {
 }
 
 .friends_activity {
-	width: 98%;
+	width: 88%;
 	display: inline-block;
 	border: 1px solid #cccccc;
 	padding: 5px;
@@ -45,7 +48,7 @@ body {
 }
 
 .user_history {
-	width: 98%;
+	width: 88%;
 	display: inline-block;
 	border: 1px solid #cccccc;
 	padding: 5px;

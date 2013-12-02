@@ -16,6 +16,12 @@ if(con == null) {
 }
 int numNewMail = User.getNumNewMailById(currUser.getId(), con);
 User.setNumNewMailToZeroById(currUser.getId(), con);
+
+// get rank quiz
+ArrayList<Rank.QuizInfo> popularQuizList = Rank.getPopularQuiz(con);
+ArrayList<Rank.QuizInfo> recentQuizList = Rank.getRecentCreatedQuiz(con);
+ArrayList<Rank.QuizInfo> recentCreatedByUserList = Rank.getQuizCreatedByUserId(con, currUser.getId());
+ArrayList<Rank.QuizInfo> recentTakenQuizByUserList = Rank.getQuizCreatedByUserId(con, currUser.getId());
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -53,15 +59,35 @@ for(int i = 0; i < numNewMail; i++) {
 <div class="lists">
 <div class="pop_quiz list_block">
 <p class="block_title">Pop Quizzes</p>
+<%
+for(int i = 0; i < popularQuizList.size(); i++) {
+	out.println("<p class='each_quiz'><a href='TakeQuiz.jsp?id=" + popularQuizList.get(i).id + "&title=" + popularQuizList.get(i).title + "'>" + popularQuizList.get(i).title + "</a></p>");
+}
+%>
 </div>
 <div class="recent_created_quiz list_block">
 <p class="block_title">Recently Created Quizzes</p>
+<%
+for(int i = 0; i < recentQuizList.size(); i++) {
+	out.println("<p class='each_quiz'><a href='TakeQuiz.jsp?id=" + recentQuizList.get(i).id + "&title=" + recentQuizList.get(i).title + "'>" + recentQuizList.get(i).title + "</a></p>");
+}
+%>
 </div>
 <div class="taken_quiz_activity list_block">
 <p class="block_title">Recently Quizzes Taken</p>
+<%
+for(int i = 0; i < recentTakenQuizByUserList.size(); i++) {
+	out.println("<p class='each_quiz'><a href='#'>" + recentTakenQuizByUserList.get(i).title + "</a></p>");
+}
+%>
 </div>
 <div class="recent_self_created_quiz list_block">
 <p class="block_title">Quizzes Created by You</p>
+<%
+for(int i = 0; i < recentCreatedByUserList.size(); i++) {
+	out.println("<p class='each_quiz'><a href='TakeQuiz.jsp?id=" + recentCreatedByUserList.get(i).id + "&title=" + recentCreatedByUserList.get(i).title + "'>" + recentCreatedByUserList.get(i).title + "</a></p>");
+}
+%>
 </div>
 </div>
 
@@ -90,11 +116,11 @@ for(int i = 0; i < histories.size(); i++) {
 <input type="submit" value = "Create quiz" />
 </form>
 
-<!--<form action="HistoryServlet" method="post">
+<form action="HistoryServlet" method="post">
 <input type="submit" value="Create History"/>
 </form>
 
---><!--<form action="FriendServlet" method="post">
+<!--<form action="FriendServlet" method="post">
 <input type="submit" value="Create Friend"/>
 </form>
 
@@ -102,5 +128,6 @@ for(int i = 0; i < histories.size(); i++) {
 <input type="submit" value="Create Mail"/>
 </form>
 
---></body>
+-->
+</body>
 </html>
