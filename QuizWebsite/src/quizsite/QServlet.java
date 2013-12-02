@@ -46,24 +46,29 @@ public class QServlet extends HttpServlet {
 		Question newQn;
 		String question = request.getParameter("question");
 		String answer = request.getParameter("answer");
-		String type = request.getParameter("type");
+		int type = Integer.parseInt(request.getParameter("type"));
 		String MC = null;
-		switch(Integer.parseInt(type)){
+		switch(type){
 		case 1: newQn = new QResponse(question, answer);
+		newQn.setType(type);
 		break;
 		case 2: newQn = new FillIn(question, answer);
+		newQn.setType(type);
 		break;
 		case 3: newQn =  new MultiChoice(question, answer);
 		MC = request.getParameter("choices");
 		((MultiChoice) newQn).addMCOptions(MC);
+		newQn.setType(type);
+		break;
 		case 4: newQn = new PictureResponse(question, answer);
+		newQn.setType(type);
 		break;
 		default: newQn = null;
 		break;
 		}
 		newQn.printString();
 		if(!newQn.equals(null)) qz.addQuestion(newQn);
-		Question.registerQuestion(qzID, Integer.parseInt(type), question, answer, MC, dbCon);
+		Question.registerQuestion(qzID, type, question, answer, MC, dbCon);
 
 		//send the user on forward through the quiz creation
 		String action = request.getParameter("action");
