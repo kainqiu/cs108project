@@ -41,7 +41,6 @@ public class QuizServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		Quiz quiz = new Quiz();
-		quiz.setID();
 		session.setAttribute("newQuiz", quiz);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("createQuiz.jsp");

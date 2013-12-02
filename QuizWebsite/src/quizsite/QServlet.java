@@ -65,8 +65,6 @@ public class QServlet extends HttpServlet {
 		if(!newQn.equals(null)) qz.addQuestion(newQn);
 		Question.registerQuestion(qzID, Integer.parseInt(type), question, answer, MC, dbCon);
 
-
-
 		//send the user on forward through the quiz creation
 		String action = request.getParameter("action");
 		if(action.equals("Create & Continue")){
@@ -76,7 +74,5 @@ public class QServlet extends HttpServlet {
 			RequestDispatcher dispatch = request.getRequestDispatcher("optionsQuiz.jsp");
 			dispatch.forward(request, response); 
 		}
-
 	}
-
 }

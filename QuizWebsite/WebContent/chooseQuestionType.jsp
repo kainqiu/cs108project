@@ -11,23 +11,6 @@
 <h1> Choose the question type </h1>
 <body>
 
-<%
-
-DBConnection con = (DBConnection) session.getAttribute("connection");
-
-Quiz quiz = (Quiz) session.getAttribute("newQuiz");
-int qzID = quiz.getID();
-
-String title = request.getParameter("quiztitle");
-String description = request.getParameter("quizdescription");
-
-quiz.addQuizTitle(title);
-quiz.addQuizDescription(description);
-
-User currUser = (User) session.getAttribute("user");
-Quiz.registerQuiz(qzID, con, currUser, title, description);
-
-%>
 
 <form action="CreateQR.html" method = "post">
 <p> <input type="submit" value = "Question-Response" /> </p>
