@@ -21,7 +21,7 @@ User.setNumNewMailToZeroById(currUser.getId(), con);
 ArrayList<Rank.QuizInfo> popularQuizList = Rank.getPopularQuiz(con);
 ArrayList<Rank.QuizInfo> recentQuizList = Rank.getRecentCreatedQuiz(con);
 ArrayList<Rank.QuizInfo> recentCreatedByUserList = Rank.getQuizCreatedByUserId(con, currUser.getId());
-ArrayList<Rank.QuizInfo> recentTakenQuizByUserList = Rank.getQuizCreatedByUserId(con, currUser.getId());
+ArrayList<Rank.QuizInfo> recentTakenQuizByUserList = Rank.getRecentTakenQuizByUserId(con, currUser.getId());
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -77,7 +77,7 @@ for(int i = 0; i < recentQuizList.size(); i++) {
 <p class="block_title">Recently Quizzes Taken</p>
 <%
 for(int i = 0; i < recentTakenQuizByUserList.size(); i++) {
-	out.println("<p class='each_quiz'><a href='#'>" + recentTakenQuizByUserList.get(i).title + "</a></p>");
+	out.println("<p class='each_quiz'><a href='TakeQuiz.jsp?id=" + recentTakenQuizByUserList.get(i).id + "&title=" + recentTakenQuizByUserList.get(i).title + "'>" + recentTakenQuizByUserList.get(i).title + "</a></p>");
 }
 %>
 </div>
