@@ -14,7 +14,7 @@ if(con == null) {
 	session.setAttribute("connection", con);
 }
 try {
-	String selectSQL = "SELECT type, question, answer, MCoptions FROM questions WHERE quizId = ? ORDER BY id";
+	String selectSQL = "SELECT type, question, answer, MCoption FROM questions WHERE quizId = ? ORDER BY id";
 	PreparedStatement preStmt = con.getConnection().prepareStatement(selectSQL);
 	preStmt.setInt(1, quizID);
 	ResultSet rs = preStmt.executeQuery();
@@ -23,7 +23,7 @@ try {
 		int type = rs.getInt("type");
 		String question = rs.getString("question");
 		String answer = rs.getString("answer");
-		String MC = rs.getString("MCoptions");
+		String MC = rs.getString("MCoption");
 		switch(type){
 		case 1: newQn = new QResponse(question, answer);
 		break;
@@ -37,7 +37,10 @@ try {
 		default: newQn = null;
 		break;
 		}
-		if(!newQn.equals(null)) currQuiz.addQuestion(newQn);
+		if(!newQn.equals(null)){
+			currQuiz.addQuestion(newQn);
+			newQn.printString();
+		}
 	}
 } catch (SQLException e) {
 	e.printStackTrace();
@@ -47,7 +50,7 @@ session.setAttribute("currQuiz", currQuiz);
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<title><%= request.getParameter("title") %></title>
+<title>Take Quiz: <%= request.getParameter("title") %></title>
 </head>
 <body>
 
