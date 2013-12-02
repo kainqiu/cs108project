@@ -1,10 +1,13 @@
 package quizsite;
 
+import java.awt.List;
 import java.security.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 public class Quiz {
@@ -21,7 +24,7 @@ public class Quiz {
 	private int quizID;
 
 	private static java.sql.Timestamp param;
-	Set<Question> questions = new HashSet<Question>();
+	ArrayList<Question> questions = new ArrayList<Question>();
 
 	DBConnection dbCon;
 
@@ -33,7 +36,7 @@ public class Quiz {
 		return quizID;
 	}
 
-	public static boolean registerQuiz(DBConnection dbCon, User currentUser, String title, String description) {
+	public static boolean registerQuiz(DBConnection dbCon, User currentUser, String title, String description, boolean random, boolean pages, boolean correction) {
 
 		Date createdAt = new Date();
 		param = new java.sql.Timestamp(createdAt.getTime());
@@ -44,12 +47,16 @@ public class Quiz {
 		//System.out.println("userID: "  + userID + " timeCreated: " + param +  " title: " + title + " description: " + description);
 
 		try {
-			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(creatorId, createdAt, title, description, timesTaken) VALUES (?, ?, ?, ?, ?)");
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(creatorId, createdAt, title, description, timesTaken, randomQuestions, onePage, immediateCorrection) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 			preStmt.setInt(1, userID);
 			preStmt.setTimestamp(2, param);
 			preStmt.setString(3, title);
 			preStmt.setString(4, description);
 			preStmt.setInt(5, timeTaken);
+			preStmt.setBoolean(6, random);
+			preStmt.setBoolean(7, pages);
+			preStmt.setBoolean(8, correction);
+
 			preStmt.executeUpdate();
 			//System.out.println("in registerQuiz");
 			return true;
@@ -80,7 +87,7 @@ public class Quiz {
 		questions.add(ques);
 	}
 
-	public Set<Question> setOfQuestions(){
+	public ArrayList<Question> setOfQuestions(){
 		return questions;
 	}
 
