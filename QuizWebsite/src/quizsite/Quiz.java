@@ -1,5 +1,6 @@
 package quizsite;
 
+import java.security.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
@@ -8,13 +9,7 @@ import java.util.Set;
 
 public class Quiz {
 
-	//        private int question_response;
-	//        private int multiple_choice;
-	//        private int picture_response;
-	//        private int fill_inblank;
-
-	public static int count = 0;
-
+	//public static int count = 0;
 	boolean display_random = false;
 	boolean display_one_page = false;
 	boolean display_multiple_pages = false;
@@ -25,39 +20,38 @@ public class Quiz {
 	private String description;
 	private int quizID;
 
+	private static java.sql.Timestamp param;
 	Set<Question> questions = new HashSet<Question>();
 
 	DBConnection dbCon;
 
-	public void setID(){
-		quizID = Quiz.count;
-		Quiz.count++;
+	public void setID(int id){
+		quizID = id;
 	}
 
 	public int getID(){
 		return quizID;
 	}
 
-	public static boolean registerQuiz(int qzID, DBConnection dbCon, User currentUser, String title, String description) {
+	public static boolean registerQuiz(DBConnection dbCon, User currentUser, String title, String description) {
 
-		java.util.Date createdAt = new Date();
-		Object param = new java.sql.Timestamp(createdAt.getTime());
+		Date createdAt = new Date();
+		param = new java.sql.Timestamp(createdAt.getTime());
 		
+		int timeTaken = 0;
 		int userID = currentUser.getId();
-		String key = currentUser.getUsername() + Integer.toString(qzID);
-		System.out.println("quizID: " + qzID + " userID: "  + userID + " timeCreated: " + param + " key: " + key + " title: " + title + " description: " + description);
+		//String key = currentUser.getUsername() + Integer.toString(qzID);
+		//System.out.println("userID: "  + userID + " timeCreated: " + param +  " title: " + title + " description: " + description);
 
 		try {
-			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(id, creatorId, createdAt, idKey, title, description) VALUES (?, ?, ?, ?, ?, ?)");
-			preStmt.setInt(1, qzID);
-			preStmt.setInt(2, userID);
-			preStmt.setObject(3, param);
-			preStmt.setString(4, key);
-			preStmt.setString(5, title);
-			preStmt.setString(6, description);
-
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(creatorId, createdAt, title, description, timesTaken) VALUES (?, ?, ?, ?, ?)");
+			preStmt.setInt(1, userID);
+			preStmt.setTimestamp(2, param);
+			preStmt.setString(3, title);
+			preStmt.setString(4, description);
+			preStmt.setInt(5, timeTaken);
 			preStmt.executeUpdate();
-			System.out.println("in registerQuiz");
+			//System.out.println("in registerQuiz");
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -65,6 +59,7 @@ public class Quiz {
 		return false;
 	}
 
+	
 	public void addQuizTitle(String str){
 		title = str;
 	}
@@ -123,7 +118,4 @@ public class Quiz {
 	public boolean isFinalCorrectionTrue(){
 		return display_final_correction;
 	}
-
-	// time and score
-
 }
