@@ -66,23 +66,23 @@ public class Rank {
 		return createdByUser;
 	}
 	
-//	static public ArrayList<QuizInfo> getRecentTakenQuizByUserId(DBConnection dbCon, int userId) {
-//		ArrayList<QuizInfo> recentTakenByUserId = new ArrayList<QuizInfo>();
-//		try {
-//			String selectSQL = "SELECT quizId FROM histories WHERE userId = ? ORDER BY finishAt DESC LIMIT 5";
-//			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
-//			preStmt.setInt(1, userId);
-//			ResultSet rs = preStmt.executeQuery();
-//			while(rs.next()) {
-//				int quizId = rs.getInt("quizId");
-//				String quizTitle = Quiz.getTitleById(quizId);
-//				QuizInfo qi = new QuizInfo(quizId, quizTitle);
-//				recentTakenByUserId.add(qi);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} 	
-//		return recentTakenByUserId;
-//	}
+	static public ArrayList<QuizInfo> getRecentTakenQuizByUserId(DBConnection dbCon, int userId) {
+		ArrayList<QuizInfo> recentTakenByUserId = new ArrayList<QuizInfo>();
+		try {
+			String selectSQL = "SELECT quizId FROM histories WHERE userId = ? ORDER BY finishAt DESC LIMIT 5";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			preStmt.setInt(1, userId);
+			ResultSet rs = preStmt.executeQuery();
+			while(rs.next()) {
+				int quizId = rs.getInt("quizId");
+				String quizTitle = Quiz.getTitleById(quizId, dbCon);
+				QuizInfo qi = new QuizInfo(quizId, quizTitle);
+				recentTakenByUserId.add(qi);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 	
+		return recentTakenByUserId;
+	}
 	
 }

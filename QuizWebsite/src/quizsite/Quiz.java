@@ -3,6 +3,7 @@ package quizsite;
 import java.awt.List;
 import java.security.Timestamp;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -125,4 +126,23 @@ public class Quiz {
 	public boolean isFinalCorrectionTrue(){
 		return display_final_correction;
 	}
+	
+	static public String getTitleById(int id, DBConnection dbCon) {
+		try {
+			String selectSQL = "SELECT title FROM quizzes WHERE id = ?";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			preStmt.setInt(1, id);
+			ResultSet rs = preStmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString("title");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} 
+		return null;
+	}
+
+	// time and score
+
 }
