@@ -228,6 +228,61 @@ public class User {
 		return this.friends;
 	}
 	
+	static public class Activity {
+		public String username;
+		public int userId;
+		public String quizTitle;
+		public int quizId;
+		public boolean isCreate;
+		public java.sql.Timestamp timestamp;
+		
+		public Activity(String username, int userId, String quizTitle, int quizId, boolean isCreate, java.sql.Timestamp timestamp) {
+			this.username = username;
+			this.userId = userId;
+			this.quizId = quizId;
+			this.quizTitle = quizTitle;
+			this.isCreate = isCreate;
+			this.timestamp = timestamp;
+		}
+	}
+	
+	public ArrayList<Activity> getRecentFriendsActivities() {
+		ArrayList<Activity> friendsAct = new ArrayList<Activity>();
+		ArrayList<User> friends = getFriendsList();
+		try {
+			for(User u : friends) {
+				// query for quiz taken
+				String selectSQL = "SELECT quizId, finishAt FROM histories WHERE userId = ? AND ADDTIME(finishAt, '20 0:0:0.000000') > ? ORDER BY finishAt DESC LIMIT 5";
+				PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+				preStmt.setInt(1, u.getId());
+				java.util.Date finishAt = new Date();
+				Object timestamp = new java.sql.Timestamp(finishAt.getTime());
+				preStmt.setString(2, timestamp.toString());
+				//System.out.println("sql select is : " + preStmt.toString());
+				ResultSet rs = preStmt.executeQuery();
+				while(rs.next()) {
+					Activity act = new Activity(u.getUsername(), u.getId(), Quiz.getTitleById(rs.getInt("quizId"), dbCon), rs.getInt("quizId"), false, rs.getTimestamp("finishAt"));
+					friendsAct.add(act);
+				}
+				
+				// query for quiz created
+				selectSQL = "SELECT id, title, createdAt FROM quizzes WHERE creatorId = ? AND ADDTIME(createdAt, '20 0:0:0.000000') > ? ORDER BY createdAt DESC LIMIT 5";
+				preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+				preStmt.setInt(1, u.getId());
+				preStmt.setString(2, timestamp.toString());
+				//System.out.println("sql select is : " + preStmt.toString());
+				rs = preStmt.executeQuery();
+				while(rs.next()) {
+					Activity act = new Activity(u.getUsername(), u.getId(), rs.getString("title"), rs.getInt("id"), true, rs.getTimestamp("createdAt"));
+					friendsAct.add(act);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return friendsAct;
+	}
+	
 	static public String getUsernameById(int id, DBConnection dbCon) {
 		try {
 			String selectSQL = "SELECT username FROM users WHERE id = ?";

@@ -9,6 +9,7 @@ User currUser = (User) session.getAttribute("user");
 ArrayList<Mail> mails = currUser.getMails();
 ArrayList<History> histories = currUser.getHistories();
 ArrayList<User> friends = currUser.getFriendsList();
+ArrayList<User.Activity> friendsAct = currUser.getRecentFriendsActivities();
 DBConnection con = (DBConnection) session.getAttribute("connection");
 if(con == null) {
 	con = new DBConnection();
@@ -22,6 +23,7 @@ ArrayList<Rank.QuizInfo> popularQuizList = Rank.getPopularQuiz(con);
 ArrayList<Rank.QuizInfo> recentQuizList = Rank.getRecentCreatedQuiz(con);
 ArrayList<Rank.QuizInfo> recentCreatedByUserList = Rank.getQuizCreatedByUserId(con, currUser.getId());
 ArrayList<Rank.QuizInfo> recentTakenQuizByUserList = Rank.getRecentTakenQuizByUserId(con, currUser.getId());
+session.setAttribute("sortType", "score");
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -58,10 +60,10 @@ for(int i = 0; i < numNewMail; i++) {
 
 <div class="lists">
 <div class="pop_quiz list_block">
-<p class="block_title">Pop Quizzes</p>
+<p class="block_title">Popular Quizzes</p>
 <%
 for(int i = 0; i < popularQuizList.size(); i++) {
-	out.println("<p class='each_quiz'><a href='TakeQuiz.jsp?id=" + popularQuizList.get(i).id + "&title=" + popularQuizList.get(i).title + "'>" + popularQuizList.get(i).title + "</a></p>");
+	out.println("<p class='each_quiz'><a href='QSummary.jsp?id=" + popularQuizList.get(i).id + "'>" + popularQuizList.get(i).title + "</a></p>");
 }
 %>
 </div>
@@ -69,7 +71,7 @@ for(int i = 0; i < popularQuizList.size(); i++) {
 <p class="block_title">Recently Created Quizzes</p>
 <%
 for(int i = 0; i < recentQuizList.size(); i++) {
-	out.println("<p class='each_quiz'><a href='TakeQuiz.jsp?id=" + recentQuizList.get(i).id + "&title=" + recentQuizList.get(i).title + "'>" + recentQuizList.get(i).title + "</a></p>");
+	out.println("<p class='each_quiz'><a href='QSummary.jsp?id=" + recentQuizList.get(i).id + "'>" + recentQuizList.get(i).title + "</a></p>");
 }
 %>
 </div>
@@ -77,7 +79,7 @@ for(int i = 0; i < recentQuizList.size(); i++) {
 <p class="block_title">Recently Quizzes Taken</p>
 <%
 for(int i = 0; i < recentTakenQuizByUserList.size(); i++) {
-	out.println("<p class='each_quiz'><a href='TakeQuiz.jsp?id=" + recentTakenQuizByUserList.get(i).id + "&title=" + recentTakenQuizByUserList.get(i).title + "'>" + recentTakenQuizByUserList.get(i).title + "</a></p>");
+	out.println("<p class='each_quiz'><a href='QSummary.jsp?id=" + recentTakenQuizByUserList.get(i).id + "'>" + recentTakenQuizByUserList.get(i).title + "</a></p>");
 }
 %>
 </div>
@@ -85,7 +87,7 @@ for(int i = 0; i < recentTakenQuizByUserList.size(); i++) {
 <p class="block_title">Quizzes Created by You</p>
 <%
 for(int i = 0; i < recentCreatedByUserList.size(); i++) {
-	out.println("<p class='each_quiz'><a href='TakeQuiz.jsp?id=" + recentCreatedByUserList.get(i).id + "&title=" + recentCreatedByUserList.get(i).title + "'>" + recentCreatedByUserList.get(i).title + "</a></p>");
+	out.println("<p class='each_quiz'><a href='QSummary.jsp?id=" + recentCreatedByUserList.get(i).id + "'>" + recentCreatedByUserList.get(i).title + "</a></p>");
 }
 %>
 </div>
@@ -94,9 +96,13 @@ for(int i = 0; i < recentCreatedByUserList.size(); i++) {
 <div class="friends_activity">
 <p class="block_title">Friends Activities</p>
 <%
-for(int i = 0; i < friends.size(); i++) {
-	User f = friends.get(i);
-	out.println("<p class='each_history'>Your friend " + f.getUsername() + ". </p>");
+for(int i = 0; i < friendsAct.size(); i++) {
+	User.Activity f = friendsAct.get(i);
+	if(f.isCreate) {
+		out.println("<p class='each_history'>Your friend <a href='User.jsp?id=" + f.userId + "'>" + f.username + "</a> created a quiz <a href='QSummary.jsp?id=" + f.quizId + "'>" + f.quizTitle + "</a> at " + f.timestamp + ". </p>");
+	} else {
+		out.println("<p class='each_history'>Your friend <a href='User.jsp?id=" + f.userId + "'>" + f.username + "</a> took a quiz <a href='QSummary.jsp?id=" + f.quizId + "'>" + f.quizTitle + "</a> at " + f.timestamp + ". </p>");
+	}
 }
 %>
 </div>
@@ -105,6 +111,7 @@ for(int i = 0; i < friends.size(); i++) {
 <p class="block_title">History</p>
 <%
 for(int i = 0; i < histories.size(); i++) {
+	if(i > 10) break;
 	History h = histories.get(i);
 	out.println("<p class='each_history'>Take quiz " + h.getQuizId() + ", using " + h.getElapsedTime() + ", score is " + h.getScore() + ", at " + h.getFinishAt() + ". </p>");
 }

@@ -10,6 +10,16 @@
 </head>
 <h1> Choose the question type </h1>
 <body>
+<%
+Quiz quiz = (Quiz) session.getAttribute("newQuiz");
+
+String title = request.getParameter("quiztitle");
+String description = request.getParameter("quizdescription");
+
+quiz.addQuizTitle(title);
+quiz.addQuizDescription(description);
+
+%>
 
 
 <form action="CreateQR.html" method = "post">

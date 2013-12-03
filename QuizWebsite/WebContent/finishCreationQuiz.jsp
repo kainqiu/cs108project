@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*, quizsite.*"%>
+<%@page import="quizsite.DBConnection, quizsite.*, java.util.*, java.sql.*, java.text.*"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,7 +11,6 @@
 <body>
 <form action="Home.jsp" method = "post">
 <%
-
 Quiz quiz = (Quiz) session.getAttribute("newQuiz");
 
 String randomQuestionsCheckBoxValue = request.getParameter("randomQuestions");
@@ -35,6 +34,36 @@ if(immediateCorrectionCheckBoxValue.equals("1")){
 else{
 	quiz.setFinalCorrectionTrue();
 }
+
+
+DBConnection con = (DBConnection) session.getAttribute("connection");
+
+String title = quiz.getQuizTitle();
+String description = quiz.getQuizDescription();
+
+User currUser = (User) session.getAttribute("user");
+
+boolean random = quiz.isDisplayRandom();
+boolean pages = quiz.isDisplayOnePageTrue();
+boolean correction = quiz.isImmediateCorrectionTrue();
+
+
+Quiz.registerQuiz(con, currUser, title, description, random, pages, correction);
+
+String selectSQL = "SELECT id FROM quizzes ORDER BY createdAt DESC";
+
+PreparedStatement preStmt;
+try {
+	preStmt = con.getConnection().prepareStatement(selectSQL);
+	ResultSet rs = preStmt.executeQuery();
+	if (rs.next()){
+		quiz.setID(rs.getInt("id"));
+	}				
+} catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+
 %>
 
 <h1> Congratulations on finishing creating your quiz! </h1>

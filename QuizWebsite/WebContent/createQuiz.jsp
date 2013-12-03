@@ -9,7 +9,7 @@
 <title>Creating Quiz</title>
 </head>
 <body>
-<form action="QuizDatabaseServlet" method = "post">
+<form action="chooseQuestionType.jsp" method = "post">
 
 <h1> Create your quiz! </h1>
 

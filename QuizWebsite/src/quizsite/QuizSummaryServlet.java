@@ -1,8 +1,8 @@
 package quizsite;
 
 import java.io.IOException;
-import java.util.Date;
-import java.sql.Time;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class HistoryServlet
+ * Servlet implementation class QuizSummaryServlet
  */
-@WebServlet("/HistoryServlet")
-public class HistoryServlet extends HttpServlet {
+@WebServlet("/QuizSummaryServlet")
+public class QuizSummaryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public HistoryServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public QuizSummaryServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,19 +36,17 @@ public class HistoryServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("in qsum servlet");
 		HttpSession session = request.getSession();
-		DBConnection con = (DBConnection) session.getAttribute("connection");
-		if(con == null) {
-			con = new DBConnection();
-			session.setAttribute("connection", con);
-		}
-		User currUser = (User) session.getAttribute("user");
 
-		Time elapsedTime = new Time(10000);
-		//java.util.Date finishAt = new java.util.Date();
-		History.createHistory(1, 1, 70, elapsedTime, con);
-		History.createHistory(1, 1, 60, elapsedTime, con);
-		History.createHistory(1, 1, 40, elapsedTime, con);
+		String type = request.getParameter("type");
+		String quizId = request.getParameter("quizId");
+		System.out.println("type is " + type);
+		session.setAttribute("sortType", type);
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher("QSummary.jsp?id=" + quizId);
+		dispatch.forward(request, response);
 	}
 
 }
