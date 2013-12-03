@@ -9,6 +9,7 @@ public class Question {
 	private String answer;
 	private ArrayList<String> answers;
 	public final String DELIM = "\n";
+	private int type;
 
 	Question(String question, String answer){
 		this.question = question;
@@ -17,11 +18,20 @@ public class Question {
 		//                System.out.println("answer: " + this.answer);
 		answers = new ArrayList<String>();
 		parseAnswers();
+		type = -1;
+	}
+	
+	public int getType(){
+		return type;
+	}
+	
+	public void setType(int newT){
+		this.type = newT;
 	}
 
-	public boolean checkAnswer(String answer) {
+	public boolean checkAnswer(String response) {
 		for(int i=0; i<answers.size(); i++){
-			if(this.answer.equals(answer)) return true;
+			if(answers.get(i).equals(response.trim())) return true;
 		}
 		return false;
 	}
@@ -34,7 +44,7 @@ public class Question {
 	private void parseAnswers(){
 		String[] parsedAnswers = answer.split(DELIM);
 		for(int i=0; i<parsedAnswers.length; i++){
-			answers.add(parsedAnswers[i]);
+			answers.add(parsedAnswers[i].trim());
 		}
 	}
 

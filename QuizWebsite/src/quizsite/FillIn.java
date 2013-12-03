@@ -2,7 +2,7 @@ package quizsite;
 
 public class FillIn extends Question{
 	public final String DELIM = "%_" ;
-	public final String BLANK = "___[BLANK]___";
+	public final String BLANK = "_____________";
 	
 	public FillIn(String question, String answer){
 		super(question, answer);
