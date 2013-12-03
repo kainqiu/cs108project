@@ -29,9 +29,9 @@ public class Question {
 		this.type = newT;
 	}
 
-	public boolean checkAnswer(String answer) {
+	public boolean checkAnswer(String response) {
 		for(int i=0; i<answers.size(); i++){
-			if(this.answer.equals(answer)) return true;
+			if(answers.get(i).equals(response.trim())) return true;
 		}
 		return false;
 	}
@@ -44,7 +44,7 @@ public class Question {
 	private void parseAnswers(){
 		String[] parsedAnswers = answer.split(DELIM);
 		for(int i=0; i<parsedAnswers.length; i++){
-			answers.add(parsedAnswers[i]);
+			answers.add(parsedAnswers[i].trim());
 		}
 	}
 

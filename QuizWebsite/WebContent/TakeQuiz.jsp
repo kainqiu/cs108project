@@ -27,17 +27,13 @@ try {
 		String MC = rs.getString("MCoption");
 		switch(type){
 		case 1: newQn = new QResponse(question, answer);
-		newQn.printString();
 		break;
 		case 2: newQn = new FillIn(question, answer);
-		newQn.printString();
 		break;
 		case 3: newQn =  new MultiChoice(question, answer);
-		newQn.printString();
 		((MultiChoice) newQn).addMCOptions(MC);
 		break;
 		case 4: newQn = new PictureResponse(question, answer);
-		newQn.printString();
 		break;
 		default: newQn = null;
 		break;
@@ -45,7 +41,6 @@ try {
 		if(!newQn.equals(null)){
 			newQn.setType(type);
 			currQuiz.addQuestion(newQn);
-			newQn.printString();
 		}
 	}
 } catch (SQLException e) {
@@ -64,7 +59,7 @@ session.setAttribute("currQuiz", currQuiz);
 <div class="quiz">
 <h1><%= request.getParameter("title") %></h1>
 
-<form action="" method="post">
+<form action="SubmitQuizServlet" method="post">
 <ol>
 	<%
 for(int i=0; i<questions.size(); i++){
@@ -75,7 +70,7 @@ for(int i=0; i<questions.size(); i++){
 	case 1: //Question-Response
 	case 2: //Fill-in
 		out.print(curr.getQuestion() + "<br>");
-		out.print("<input type = \"text\" name=\" " + i + " \" />");
+		out.print("<input type = \"text\" name=" + Integer.toString(i) + " />");
 	break;
 	case 3: //Multiple Choice
 		out.print(curr.getQuestion() + "<br>");
@@ -87,13 +82,13 @@ for(int i=0; i<questions.size(); i++){
 		}
 	break;
 	case 4: //Picture-Response
-		out.print("<img src= \"" + curr.getQuestion() + " \" /> <br>");
-		out.print("<input type = \"text\" name=\" " + i + " \" />");
+		out.print("<br><img src= \"" + curr.getQuestion() + "\" /> <br><br>");
+		out.print("<input type = \"text\" name=\"" + i + "\" />");
 		break;
 	default: out.print("ERROR");
 	break;
 	}
-	out.print("</li>");
+	out.print("</li><br>");
 	
 }
 	
