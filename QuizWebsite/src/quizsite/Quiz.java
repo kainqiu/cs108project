@@ -19,6 +19,10 @@ public class Quiz {
 	boolean display_multiple_pages = false;
 	boolean display_immediate_correction = false;
 	boolean display_final_correction= false;
+	
+	private boolean randomize;
+	private boolean onePage;
+	private boolean immediateCorrection;
 
 	private String title;
 	private String description;
@@ -28,6 +32,13 @@ public class Quiz {
 	ArrayList<Question> questions = new ArrayList<Question>();
 
 	DBConnection dbCon;
+	
+	//empty parameter constructor... added by Sarah
+	public Quiz(){
+		randomize = false;
+		onePage = false;
+		immediateCorrection = false;
+	}
 
 	public void setID(int id){
 		quizID = id;
@@ -126,6 +137,32 @@ public class Quiz {
 	public boolean isFinalCorrectionTrue(){
 		return display_final_correction;
 	}
+	
+	//added by Sarah
+	public void setRandomize(boolean randomize){
+		this.randomize = randomize;
+	}
+	
+	public boolean isRandom(){
+		return randomize;
+	}
+	
+	public void setDisplay(boolean display){
+		onePage = display;
+	}
+	
+	public boolean isOnePage(){
+		return onePage;
+	}
+	
+	public void setCorrection(boolean option){
+		immediateCorrection = option;
+	}
+	
+	public boolean isImmediateCorrection(){
+		return immediateCorrection;
+	}
+	
 	
 	static public String getTitleById(int id, DBConnection dbCon) {
 		try {
