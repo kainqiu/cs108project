@@ -60,6 +60,7 @@
 				currQuiz.setRandomize(rs.getBoolean("randomQuestions"));
 				currQuiz.setDisplay(rs.getBoolean("onePage"));
 				currQuiz.setCorrection(rs.getBoolean("immediateCorrection"));
+				currQuiz.setID(quizID);
 				session.setAttribute("quizTitle", rs.getString("title"));
 			} else
 				System.out.println("ERROR. QUIZ QUERY EMPTY!!!!");
@@ -72,6 +73,10 @@
 		
 		ArrayList<String> answers = new ArrayList<String>();
 		ArrayList<Boolean> results = new ArrayList<Boolean>(questions.size());
+		
+		java.util.Date date= new java.util.Date();
+		
+		session.setAttribute("startTime", date.getTime());
 		session.setAttribute("currQuiz", currQuiz);
 		session.setAttribute("results", results);
 		session.setAttribute("answers", answers);

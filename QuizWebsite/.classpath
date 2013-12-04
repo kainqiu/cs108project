@@ -10,6 +10,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/JennyChen/Desktop/apache-tomcat-7.0.47/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/Users/snader2/Downloads/apache-tomcat-7.0.47/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
