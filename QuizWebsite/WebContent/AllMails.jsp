@@ -30,7 +30,7 @@ for(int i = 0; i < mails.size(); i++) {
 	if(mails.get(i).getType() == Mail.FRIEND_REQ) {
 		out.println("<p class='each_mail'>From <a href=\"User.jsp?id=" + fromId + "\">" + fromUsername + "</a>: </p><table><tr><td>Friend request: </td><td><form action=\"FriendServlet\" method=\"post\"><input type=\"submit\" value=\"Confirm\"/><input type=\"hidden\" name=\"addFriendId\" value=\"" + fromId + "\" /></form></td></tr></table>");
 	} else if(mails.get(i).getType() == Mail.CHALLENGE) {
-		out.println("<p class='each_mail'>From <a href=\"User.jsp?id=" + fromId + "\">" + fromUsername + "</a>: </p><p class='mail_msg'>Challenge url link: " + mails.get(i).getContent() + "</p>");
+		out.println("<p class='each_mail'>From <a href=\"User.jsp?id=" + fromId + "\">" + fromUsername + "</a>: </p><p class='mail_msg'>Challenge url link: <a href='" + mails.get(i).getContent() + "'>Take the quiz</a></p>");
 	} else {
 		out.println("<p class='each_mail'>From <a href=\"User.jsp?id=" + fromId + "\">" + fromUsername + "</a>: </p><p class='mail_msg'>Message: " + mails.get(i).getContent() + "</p>");
 	}
