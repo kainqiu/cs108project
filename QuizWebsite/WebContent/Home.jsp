@@ -36,7 +36,11 @@ session.setAttribute("sortType", "score");
 <h3>Hello, <%= currUser.getUsername() %>! Welcome to our quiz website!</h3>
 
 <div class="msg">
+<<<<<<< HEAD
 <p class="block_title"> Mails Received
+=======
+<p class="block_title">Your Inbox
+>>>>>>> 61a97df3988714794227fda791001ca34653b8ea
 <% if(numNewMail != 0) {
 	out.println("<span class='new_mail_notice'>(" + numNewMail + " new mails)</span>");
 }
@@ -49,13 +53,13 @@ for(int i = 0; i < numNewMail; i++) {
 	if(mails.get(i).getType() == Mail.FRIEND_REQ) {
 		out.println("<p class='each_mail'>From <a href=\"User.jsp?id=" + fromId + "\">" + fromUsername + "</a>: </p><table><tr><td>Friend request: </td><td><form action=\"FriendServlet\" method=\"post\"><input type=\"submit\" value=\"Confirm\"/><input type=\"hidden\" name=\"addFriendId\" value=\"" + fromId + "\" /></form></td></tr></table>");
 	} else if(mails.get(i).getType() == Mail.CHALLENGE) {
-		out.println("<p class='each_mail'>From <a href=\"User.jsp?id=" + fromId + "\">" + fromUsername + "</a>: </p><p class='mail_msg'>Challenge url link: " + mails.get(i).getContent() + "</p>");
+		out.println("<p class='each_mail'>From <a href=\"User.jsp?id=" + fromId + "\">" + fromUsername + "</a>: </p><p class='mail_msg'>Challenge url link: <a href='" + mails.get(i).getContent() + "'>Take the quiz</a></p>");
 	} else {
 		out.println("<p class='each_mail'>From <a href=\"User.jsp?id=" + fromId + "\">" + fromUsername + "</a>: </p><p class='mail_msg'>Message: " + mails.get(i).getContent() + "</p>");
 	}
 }
 %>
-<a href="AllMails.jsp">Check All Mails &gt;&gt;</a>
+<a href="AllMails.jsp">Check All Mail &gt;&gt;</a>
 </div>
 
 
@@ -82,7 +86,7 @@ for(int i = 0; i < recentQuizList.size(); i++) {
 %>
 </div>
 <div class="taken_quiz_activity list_block">
-<p class="block_title">Recently Quizzes Taken</p>
+<p class="block_title">Quizzes You've Taken Today</p>
 <%
 for(int i = 0; i < recentTakenQuizByUserList.size(); i++) {
 	out.println("<p class='each_quiz'><a href='QSummary.jsp?id=" + recentTakenQuizByUserList.get(i).id + "'>" + recentTakenQuizByUserList.get(i).title + "</a></p>");
@@ -100,7 +104,7 @@ for(int i = 0; i < recentCreatedByUserList.size(); i++) {
 </div>
 
 <div class="friends_activity">
-<p class="block_title">Friends Activities</p>
+<p class="block_title">Your Friends' Activity</p>
 <%
 for(int i = 0; i < friendsAct.size(); i++) {
 	User.Activity f = friendsAct.get(i);
@@ -114,12 +118,13 @@ for(int i = 0; i < friendsAct.size(); i++) {
 </div>
 
 <div class="user_history">
-<p class="block_title">History</p>
+<p class="block_title">Your Quiz-Taking History</p>
 <%
 for(int i = 0; i < histories.size(); i++) {
 	if(i > 10) break;
 	History h = histories.get(i);
-	out.println("<p class='each_history'>Take quiz " + h.getQuizId() + ", using " + h.getElapsedTime() + ", score is " + h.getScore() + ", at " + h.getFinishAt() + ". </p>");
+
+	out.println("<p class='each_history'>Took quiz <b><a href='QSummary.jsp?id=" + h.getQuizId() + "'>" + Quiz.getTitleById(h.getQuizId(), con) + "</a></b>, at <i>" + h.getFinishAt() + "</i> and received <b>" + h.getScore() + "</b> out of <b>" + h.getMaxPossScore() + " </b> points in <b>"+ h.getElapsedTime() + "</b> seconds. </p>");
 }
 %>
 <a href="AllHistories.jsp">Check History &gt;&gt;</a>

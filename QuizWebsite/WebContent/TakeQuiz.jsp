@@ -60,6 +60,7 @@
 				currQuiz.setRandomize(rs.getBoolean("randomQuestions"));
 				currQuiz.setDisplay(rs.getBoolean("onePage"));
 				currQuiz.setCorrection(rs.getBoolean("immediateCorrection"));
+				currQuiz.setID(quizID);
 				session.setAttribute("quizTitle", rs.getString("title"));
 			} else
 				System.out.println("ERROR. QUIZ QUERY EMPTY!!!!");
@@ -72,6 +73,10 @@
 		
 		ArrayList<String> answers = new ArrayList<String>();
 		ArrayList<Boolean> results = new ArrayList<Boolean>(questions.size());
+		
+		java.util.Date date= new java.util.Date();
+		
+		session.setAttribute("startTime", date.getTime());
 		session.setAttribute("currQuiz", currQuiz);
 		session.setAttribute("results", results);
 		session.setAttribute("answers", answers);
@@ -79,7 +84,7 @@
 %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
+<link rel="stylesheet" href="/QuizWebsite/Quiz.css" type="text/css">
 <title>Take Quiz: <%=session.getAttribute("quizTitle")%></title>
 </head>
 <body>
@@ -99,7 +104,7 @@
 			case 1: //Question-Response
 			case 2: //Fill-in
 				out.print(curr.getQuestion() + "<br>");
-				out.print("<input type = \"text\" name="
+				out.print("<input type = \"text\" value=\"\" name="
 						+ Integer.toString(i) + " />");
 				break;
 			case 3: //Multiple Choice
@@ -117,7 +122,7 @@
 			case 4: //Picture-Response
 				out.print("<br><img src= \"" + curr.getQuestion()
 						+ "\" /> <br><br>");
-				out.print("<input type = \"text\" name=\"" + i + "\" />");
+				out.print("<input type = \"text\" value=\"\" name=\"" + i + "\" />");
 				break;
 			default:
 				out.print("ERROR");
@@ -140,7 +145,7 @@
 		case 1: //Question-Response
 		case 2: //Fill-in
 			out.print(curr.getQuestion() + "<br>");
-			out.print("<input type = \"text\" name="
+			out.print("<input type = \"text\" value=\"\" name="
 					+ Integer.toString(currIdx) + " />");
 			break;
 		case 3: //Multiple Choice
@@ -158,7 +163,7 @@
 		case 4: //Picture-Response
 			out.print("<br><img src= \"" + curr.getQuestion()
 					+ "\" /> <br><br>");
-			out.print("<input type = \"text\" name=\"" + currIdx + "\" />");
+			out.print("<input type = \"text\" value=\"\" name=\"" + currIdx + "\" />");
 			break;
 		default:
 			out.print("ERROR");

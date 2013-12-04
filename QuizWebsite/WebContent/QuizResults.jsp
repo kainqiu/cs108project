@@ -8,6 +8,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="/QuizWebsite/Quiz.css" type="text/css">
 <title><%=session.getAttribute("quizTitle")%>: Results</title>
 </head>
 <body>
@@ -15,8 +16,9 @@
 <div class="results">
 <ol>
 <%
+Quiz currQuiz = (Quiz)session.getAttribute("currQuiz");
 ArrayList<String> answers = (ArrayList<String>) session.getAttribute("answers");
-ArrayList<Question> questions = ((Quiz)session.getAttribute("currQuiz")).setOfQuestions();
+ArrayList<Question> questions = currQuiz.setOfQuestions();
 ArrayList<Boolean> results = (ArrayList<Boolean>) session.getAttribute("results");
 int score = 0;
 for(int i=0; i<answers.size(); i++){
@@ -38,8 +40,22 @@ for(int i=0; i<answers.size(); i++){
 		out.print("<font color=\"red\"><b>Wrong</b></font></li><br>");
 	}
 }
-out.print("</ol> <h3>Final Score: " + score + "/" + questions.size() + "</h3>");
+long start = (Long) session.getAttribute("startTime");
+java.util.Date date= new java.util.Date();
+double elapsed = (date.getTime() - start)/1000.0;
+
+out.print("</ol> <h3>Final Score: " + score + "/" + questions.size() + ", Time Elapsed: " + elapsed + " seconds </h3>");
+
+//register stuff in database
+DBConnection con = (DBConnection) session.getAttribute("connection");
+if(!History.createHistory(((User)session.getAttribute("user")).getId(), currQuiz.getID(), score, elapsed, questions.size(), con)) System.out.println("error registering quiz score");
+//if(!History.createHistory(((User) session.getAttribute("user")).getId()	, currQuiz.getID(), score, elapsed, questions.size(), con)) System.out.println("registering score didn't work");
+if(!Quiz.incrementTimesTaken(currQuiz.getID(), con)) System.out.println("Error incrementing times taken");
 session.setAttribute("currQuiz", null);
+session.setAttribute("answers", null);
+session.setAttribute("results", null);
+session.setAttribute("startTime", null);
+
 %>
 
 <form method="get" action="Home.jsp">

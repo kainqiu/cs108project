@@ -87,6 +87,18 @@ public class Quiz {
 		} 
 		return false;
 	}
+	
+	public static boolean incrementTimesTaken(int id, DBConnection dbCon){
+		try {
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("UPDATE quizzes SET timesTaken = timesTaken+1 WHERE id = ?");
+			preStmt.setInt(1, id);
+			preStmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return false;
+	}
 
 	
 	public void addQuizTitle(String str){
@@ -250,7 +262,7 @@ public class Quiz {
 			preStmt.setInt(1, quizId);
 			ResultSet rs = preStmt.executeQuery();
 			while(rs.next()) {
-				RecordInfo ri = new RecordInfo(rs.getInt("userId"), rs.getInt("score"), rs.getTime("elapsedTime"), rs.getTimestamp("finishAt"));
+				RecordInfo ri = new RecordInfo(rs.getInt("userId"), rs.getInt("score"), rs.getDouble("elapsedTime"), rs.getTimestamp("finishAt"));
 				highRec.add(ri);
 			}
 		} catch (SQLException e) {
@@ -267,7 +279,7 @@ public class Quiz {
 			preStmt.setInt(1, quizId);
 			ResultSet rs = preStmt.executeQuery();
 			while(rs.next()) {
-				RecordInfo ri = new RecordInfo(rs.getInt("userId"), rs.getInt("score"), rs.getTime("elapsedTime"), rs.getTimestamp("finishAt"));
+				RecordInfo ri = new RecordInfo(rs.getInt("userId"), rs.getInt("score"), rs.getDouble("elapsedTime"), rs.getTimestamp("finishAt"));
 				recentRec.add(ri);
 			}
 		} catch (SQLException e) {
@@ -319,7 +331,7 @@ public class Quiz {
 			//System.out.println("sql select is : " + preStmt.toString());
 			ResultSet rs = preStmt.executeQuery();
 			while(rs.next()) {
-				RecordInfo ri = new RecordInfo(rs.getInt("userId"), rs.getInt("score"), rs.getTime("elapsedTime"), rs.getTimestamp("finishAt"));
+				RecordInfo ri = new RecordInfo(rs.getInt("userId"), rs.getInt("score"), rs.getDouble("elapsedTime"), rs.getTimestamp("finishAt"));
 				lastRec.add(ri);
 			}
 		} catch (SQLException e) {
@@ -347,7 +359,7 @@ public class Quiz {
 			//System.out.println("sql is : " + preStmt.toString());
 			ResultSet rs = preStmt.executeQuery();
 			while(rs.next()) {
-				RecordInfo ri = new RecordInfo(rs.getInt("userId"), rs.getInt("score"), rs.getTime("elapsedTime"), rs.getTimestamp("finishAt"));
+				RecordInfo ri = new RecordInfo(rs.getInt("userId"), rs.getInt("score"), rs.getDouble("elapsedTime"), rs.getTimestamp("finishAt"));
 				pastRec.add(ri);
 			}
 		} catch (SQLException e) {

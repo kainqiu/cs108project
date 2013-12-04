@@ -197,9 +197,10 @@ public class User {
 			while(rs.next()) {
 				int quizId = rs.getInt("quizId");
 				int score = rs.getInt("score");
-				Time elapsedTime = rs.getTime("elapsedTime");
+				double elapsedTime = rs.getDouble("elapsedTime");
 				java.sql.Timestamp finishAt = (Timestamp) rs.getObject("finishAt");
-				History h = new History(quizId, score, elapsedTime, finishAt);
+				int maxscore = rs.getInt("maxPossibleScore");
+				History h = new History(quizId, score, elapsedTime, finishAt, maxscore);
 				this.history.add(h);
 			}
 		} catch (SQLException e) {
@@ -344,5 +345,20 @@ public class User {
 		}
 	}
 	
+	static public int getNumQuizTakenByUserId(int userId, DBConnection dbCon) {
+		try {
+			String selectSQL = "SELECT COUNT(*) AS rowCount FROM histories WHERE userId = ?";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			preStmt.setInt(1, userId);
+			ResultSet rs = preStmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		} 
+		return 0;
+	}
 	
 }
