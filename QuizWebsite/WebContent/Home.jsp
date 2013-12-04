@@ -36,7 +36,7 @@ session.setAttribute("sortType", "score");
 <h3>Hello, <%= currUser.getUsername() %>! Welcome to our quiz website!</h3>
 
 <div class="msg">
-<p class="block_title">Mails Received
+<p class="block_title"> Mails Received
 <% if(numNewMail != 0) {
 	out.println("<span class='new_mail_notice'>(" + numNewMail + " new mails)</span>");
 }
@@ -56,6 +56,12 @@ for(int i = 0; i < numNewMail; i++) {
 }
 %>
 <a href="AllMails.jsp">Check All Mails &gt;&gt;</a>
+</div>
+
+
+<div class="msg">
+<p class="block_title"> Quizzes </p>
+<a href="quizzesWebpage.jsp">List of All Quizzes </a>
 </div>
 
 <div class="lists">

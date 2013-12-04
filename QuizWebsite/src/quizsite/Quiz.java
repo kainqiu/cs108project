@@ -33,6 +33,7 @@ public class Quiz {
 	private String description;
 	private int quizID;
 
+	private String category;
 	private static java.sql.Timestamp param;
 	ArrayList<Question> questions = new ArrayList<Question>();
 
@@ -56,7 +57,7 @@ public class Quiz {
 		return quizID;
 	}
 
-	public static boolean registerQuiz(DBConnection dbCon, User currentUser, String title, String description, boolean random, boolean pages, boolean correction) {
+	public static boolean registerQuiz(DBConnection dbCon, User currentUser, String title, String description, boolean random, boolean pages, boolean correction, String category) {
 
 		Date createdAt = new Date();
 		param = new java.sql.Timestamp(createdAt.getTime());
@@ -67,7 +68,7 @@ public class Quiz {
 		//System.out.println("userID: "  + userID + " timeCreated: " + param +  " title: " + title + " description: " + description);
 
 		try {
-			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(creatorId, createdAt, title, description, timesTaken, randomQuestions, onePage, immediateCorrection) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO quizzes(creatorId, createdAt, title, description, timesTaken, randomQuestions, onePage, immediateCorrection, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			preStmt.setInt(1, userID);
 			preStmt.setTimestamp(2, param);
 			preStmt.setString(3, title);
@@ -76,9 +77,10 @@ public class Quiz {
 			preStmt.setBoolean(6, random);
 			preStmt.setBoolean(7, pages);
 			preStmt.setBoolean(8, correction);
+			preStmt.setString(9, category);
 
 			preStmt.executeUpdate();
-			//System.out.println("in registerQuiz");
+			System.out.println("in registerQuiz");
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -145,6 +147,26 @@ public class Quiz {
 	public boolean isFinalCorrectionTrue(){
 		return display_final_correction;
 	}
+	
+	public void setCategory(String a){
+		if(a.equals("1")){
+			category = "People";
+		}
+		if(a.equals("2")){
+			category = "Animals";
+		}
+		if(a.equals("3")){
+			category = "Things";
+		}
+		if(a.equals("4")){
+			category = "No Category";
+		}
+	}
+	
+	public String getCategory(){
+		return category;
+	}
+	
 	
 	//added by Sarah
 	public void setRandomize(boolean randomize){
@@ -334,6 +356,4 @@ public class Quiz {
 		return pastRec;
 	}
 	
-	// time and score
-
 }

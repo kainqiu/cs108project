@@ -85,4 +85,21 @@ public class Rank {
 		return recentTakenByUserId;
 	}
 	
+	static public ArrayList<QuizInfo> getSameCategory(DBConnection dbCon, String category) {
+		ArrayList<QuizInfo> sameCategory = new ArrayList<QuizInfo>();
+		try {
+			String selectSQL = "SELECT id, title, category FROM quizzes";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			ResultSet rs = preStmt.executeQuery();
+			while(rs.next()) {
+				if(rs.getString("category").equals(category)){
+					QuizInfo qi = new QuizInfo(rs.getInt("id"), rs.getString("title"));
+					sameCategory.add(qi);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 	
+		return sameCategory;
+	}
 }

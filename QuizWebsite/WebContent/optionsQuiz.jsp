@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*, quizsite.*"%>
+<%@ page import="java.util.*,quizsite.*"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,13 +11,11 @@
 <form action="QuizDatabaseServlet" method="post">
 <body>
 <%
-Quiz quiz = (Quiz) session.getAttribute("newQuiz");
+	Quiz quiz = (Quiz) session.getAttribute("newQuiz");
 
-String title = request.getParameter("quiztitle");
-String description = request.getParameter("quizdescription");
+	String categoriesValue = request.getParameter("categories");
+	quiz.setCategory(categoriesValue);
 
-quiz.addQuizTitle(title);
-quiz.addQuizDescription(description);
 %>
 
 <h1> Choose options for your quiz</h1>
