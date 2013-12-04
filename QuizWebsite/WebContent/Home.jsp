@@ -36,11 +36,10 @@ session.setAttribute("sortType", "score");
 <h3>Hello, <%= currUser.getUsername() %>! Welcome to our quiz website!</h3>
 
 <div class="msg">
-<<<<<<< HEAD
+
 <p class="block_title"> Mails Received
 =======
 <p class="block_title">Your Inbox
->>>>>>> 61a97df3988714794227fda791001ca34653b8ea
 <% if(numNewMail != 0) {
 	out.println("<span class='new_mail_notice'>(" + numNewMail + " new mails)</span>");
 }
