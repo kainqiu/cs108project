@@ -34,6 +34,7 @@ Quiz.QuizSum qs = Quiz.getQuizSummary(quizId, con);
 <p>Description: <%= q.getDescription() %></p>
 <p><a href="TakeQuiz.jsp?id=<%= q.getID() %>&title=<%= q.getTitle() %>">Start taking quiz &gt;&gt;</a></p>
 <p>Quiz Statistics: <%= qs.numOfTaken %> users have taken this quiz and the average score is <%= (int)qs.avgScore %>.</p>
+<p><a href="Home.jsp">&lt;&lt; Home</a></p>
 
 <div class="block">
 <p class="block_title">Your Past Performance</p>

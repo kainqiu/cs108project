@@ -345,5 +345,20 @@ public class User {
 		}
 	}
 	
+	static public int getNumQuizTakenByUserId(int userId, DBConnection dbCon) {
+		try {
+			String selectSQL = "SELECT COUNT(*) AS rowCount FROM histories WHERE userId = ?";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			preStmt.setInt(1, userId);
+			ResultSet rs = preStmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		} 
+		return 0;
+	}
 	
 }
