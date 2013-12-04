@@ -36,7 +36,7 @@ session.setAttribute("sortType", "score");
 <h3>Hello, <%= currUser.getUsername() %>! Welcome to our quiz website!</h3>
 
 <div class="msg">
-<p class="block_title">Mails Received
+<p class="block_title">Your Inbox
 <% if(numNewMail != 0) {
 	out.println("<span class='new_mail_notice'>(" + numNewMail + " new mails)</span>");
 }
@@ -55,7 +55,7 @@ for(int i = 0; i < numNewMail; i++) {
 	}
 }
 %>
-<a href="AllMails.jsp">Check All Mails &gt;&gt;</a>
+<a href="AllMails.jsp">Check All Mail &gt;&gt;</a>
 </div>
 
 <div class="lists">
@@ -76,7 +76,7 @@ for(int i = 0; i < recentQuizList.size(); i++) {
 %>
 </div>
 <div class="taken_quiz_activity list_block">
-<p class="block_title">Recently Quizzes Taken</p>
+<p class="block_title">Quizzes You've Taken Today</p>
 <%
 for(int i = 0; i < recentTakenQuizByUserList.size(); i++) {
 	out.println("<p class='each_quiz'><a href='QSummary.jsp?id=" + recentTakenQuizByUserList.get(i).id + "'>" + recentTakenQuizByUserList.get(i).title + "</a></p>");
@@ -94,7 +94,7 @@ for(int i = 0; i < recentCreatedByUserList.size(); i++) {
 </div>
 
 <div class="friends_activity">
-<p class="block_title">Friends Activities</p>
+<p class="block_title">Your Friends' Activity</p>
 <%
 for(int i = 0; i < friendsAct.size(); i++) {
 	User.Activity f = friendsAct.get(i);
@@ -108,12 +108,12 @@ for(int i = 0; i < friendsAct.size(); i++) {
 </div>
 
 <div class="user_history">
-<p class="block_title">History</p>
+<p class="block_title">Your Quiz-Taking History</p>
 <%
 for(int i = 0; i < histories.size(); i++) {
 	if(i > 10) break;
 	History h = histories.get(i);
-	out.println("<p class='each_history'>Took quiz <a href='QSummary.jsp?id=" + h.getQuizId() + "'>" + Quiz.getTitleById(h.getQuizId(), con) + "</a>, using " + h.getElapsedTime() + ", score is " + h.getScore() + ", at " + h.getFinishAt() + ". </p>");
+	out.println("<p class='each_history'>Took quiz <b><a href='QSummary.jsp?id=" + h.getQuizId() + "'>" + Quiz.getTitleById(h.getQuizId(), con) + "</a></b>, at <i>" + h.getFinishAt() + "</i> and received <b>" + h.getScore() + "</b> out of <b>" + h.getMaxPossScore() + " </b> points in <b>"+ h.getElapsedTime() + "</b> seconds. </p>");
 }
 %>
 <a href="AllHistories.jsp">Check History &gt;&gt;</a>

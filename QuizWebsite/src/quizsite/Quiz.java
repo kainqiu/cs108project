@@ -85,6 +85,18 @@ public class Quiz {
 		} 
 		return false;
 	}
+	
+	public static boolean incrementTimesTaken(int id, DBConnection dbCon){
+		try {
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("UPDATE quizzes SET timesTaken = timesTaken+1 WHERE id = ?");
+			preStmt.setInt(1, id);
+			preStmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return false;
+	}
 
 	
 	public void addQuizTitle(String str){

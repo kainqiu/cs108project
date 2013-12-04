@@ -104,7 +104,7 @@
 			case 1: //Question-Response
 			case 2: //Fill-in
 				out.print(curr.getQuestion() + "<br>");
-				out.print("<input type = \"text\" name="
+				out.print("<input type = \"text\" value=\"\" name="
 						+ Integer.toString(i) + " />");
 				break;
 			case 3: //Multiple Choice
@@ -122,7 +122,7 @@
 			case 4: //Picture-Response
 				out.print("<br><img src= \"" + curr.getQuestion()
 						+ "\" /> <br><br>");
-				out.print("<input type = \"text\" name=\"" + i + "\" />");
+				out.print("<input type = \"text\" value=\"\" name=\"" + i + "\" />");
 				break;
 			default:
 				out.print("ERROR");
@@ -145,7 +145,7 @@
 		case 1: //Question-Response
 		case 2: //Fill-in
 			out.print(curr.getQuestion() + "<br>");
-			out.print("<input type = \"text\" name="
+			out.print("<input type = \"text\" value=\"\" name="
 					+ Integer.toString(currIdx) + " />");
 			break;
 		case 3: //Multiple Choice
@@ -163,7 +163,7 @@
 		case 4: //Picture-Response
 			out.print("<br><img src= \"" + curr.getQuestion()
 					+ "\" /> <br><br>");
-			out.print("<input type = \"text\" name=\"" + currIdx + "\" />");
+			out.print("<input type = \"text\" value=\"\" name=\"" + currIdx + "\" />");
 			break;
 		default:
 			out.print("ERROR");

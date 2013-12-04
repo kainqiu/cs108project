@@ -199,7 +199,8 @@ public class User {
 				int score = rs.getInt("score");
 				double elapsedTime = rs.getDouble("elapsedTime");
 				java.sql.Timestamp finishAt = (Timestamp) rs.getObject("finishAt");
-				History h = new History(quizId, score, elapsedTime, finishAt);
+				int maxscore = rs.getInt("maxPossibleScore");
+				History h = new History(quizId, score, elapsedTime, finishAt, maxscore);
 				this.history.add(h);
 			}
 		} catch (SQLException e) {
