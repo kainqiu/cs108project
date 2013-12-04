@@ -8,11 +8,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title> Quiz Options </title>
 </head>
-<form action="finishCreationQuiz.jsp" method="post">
-
+<form action="QuizDatabaseServlet" method="post">
 <body>
 <%
 Quiz quiz = (Quiz) session.getAttribute("newQuiz");
+
+String title = request.getParameter("quiztitle");
+String description = request.getParameter("quizdescription");
+
+quiz.addQuizTitle(title);
+quiz.addQuizDescription(description);
 %>
 
 <h1> Choose options for your quiz</h1>
@@ -45,7 +50,7 @@ Quiz quiz = (Quiz) session.getAttribute("newQuiz");
   <option value="2"> No </option>
 </select>
 
-<p> <input type = "submit"  value = "Finish creating quiz!"  /> </p>
+<p> <input type = "submit"  value = "Make your quiz questions!"  /> </p>
 
 </form>
 
