@@ -23,14 +23,13 @@ ArrayList<Admin.QuizInfo> quizInfoList = Admin.getAllQuizzes(con);
 <body>
 
 <p>Hello, admin!</p>
-<p>Currently there are <%= userInfoList.size() %> users in all.</p>
 <div class="friends_activity">
 <p class="block_title">All Users</p>
 <table>
 <%
 for(int i = 0; i < userInfoList.size(); i++) {
 	Admin.UserInfo ui = userInfoList.get(i);
-	out.println("<tr><td class='each_history'><a href='User.jsp?id=" + ui.userId + "'>" + ui.username + "</a></td><td> took " + User.getNumQuizTakenByUserId(ui.userId, con) + " quizzes</td><td><a href='RemoveUser.jsp?id=" + ui.userId + "'>Remove</a></td></tr>");
+	out.println("<tr><td class='each_history'><a href='User.jsp?id=" + ui.userId + "'>" + ui.username + "</a></td><td><a href='RemoveUser.jsp?id=" + ui.userId + "'>Remove</a></td></tr>");
 }
 %>
 </table>

@@ -6,10 +6,10 @@ public class RecordInfo {
 
 	public int userId;
 	public int score;
-	public Time elapsedTime;
+	public double elapsedTime;
 	public java.sql.Timestamp finishAt;
 	
-	public RecordInfo(int userId, int score, Time elapsedTime, java.sql.Timestamp finishAt) {
+	public RecordInfo(int userId, int score, double elapsedTime, java.sql.Timestamp finishAt) {
 		this.userId = userId;
 		this.score = score;
 		this.elapsedTime = elapsedTime;
