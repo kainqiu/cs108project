@@ -39,8 +39,20 @@ for(int i=0; i<answers.size(); i++){
 		out.print("<font color=\"red\"><b>Wrong</b></font></li><br>");
 	}
 }
-out.print("</ol> <h3>Final Score: " + score + "/" + questions.size() + "</h3>");
+long start = (Long) session.getAttribute("startTime");
+java.util.Date date= new java.util.Date();
+double elapsed = (date.getTime() - start)/1000.0;
+
+out.print("</ol> <h3>Final Score: " + score + "/" + questions.size() + ", Time Elapsed: " + elapsed + " seconds </h3>");
+
+//need to change parameters within history	
+History.createHistory(((User) session.getAttribute("user")).getId(), ((Quiz) session.getAttribute("currQuiz")).getID(), score, elapsed, (DBConnection)session.getAttribute("con"));
+
 session.setAttribute("currQuiz", null);
+session.setAttribute("answers", null);
+session.setAttribute("results", null);
+session.setAttribute("startTime", null);
+
 %>
 
 <form method="get" action="Home.jsp">
