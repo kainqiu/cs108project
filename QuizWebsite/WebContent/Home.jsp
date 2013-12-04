@@ -113,7 +113,7 @@ for(int i = 0; i < friendsAct.size(); i++) {
 for(int i = 0; i < histories.size(); i++) {
 	if(i > 10) break;
 	History h = histories.get(i);
-	out.println("<p class='each_history'>Take quiz " + h.getQuizId() + ", using " + h.getElapsedTime() + ", score is " + h.getScore() + ", at " + h.getFinishAt() + ". </p>");
+	out.println("<p class='each_history'>Took quiz <a href='QSummary.jsp?id=" + h.getQuizId() + "'>" + Quiz.getTitleById(h.getQuizId(), con) + "</a>, using " + h.getElapsedTime() + ", score is " + h.getScore() + ", at " + h.getFinishAt() + ". </p>");
 }
 %>
 <a href="AllHistories.jsp">Check History &gt;&gt;</a>

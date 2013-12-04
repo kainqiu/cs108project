@@ -197,7 +197,7 @@ public class User {
 			while(rs.next()) {
 				int quizId = rs.getInt("quizId");
 				int score = rs.getInt("score");
-				Time elapsedTime = rs.getTime("elapsedTime");
+				double elapsedTime = rs.getDouble("elapsedTime");
 				java.sql.Timestamp finishAt = (Timestamp) rs.getObject("finishAt");
 				History h = new History(quizId, score, elapsedTime, finishAt);
 				this.history.add(h);
