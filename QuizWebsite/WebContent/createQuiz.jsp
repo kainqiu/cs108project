@@ -10,7 +10,7 @@
 <title>Creating Quiz</title>
 </head>
 <body>
-<form action="chooseQuestionType.jsp" method = "post">
+<form action="optionsQuiz.jsp" method = "post">
 
 <h1> Create your quiz! </h1>
 
@@ -23,7 +23,7 @@
 
 <input type="text" name = "quizdescription">
 
-<p> Click next to create your questions for this quiz: <input type="submit" value = "Next" /></p>
+<p> Click next to choose options for your quiz: <input type="submit" value = "Next" /></p>
 
 </form>
 

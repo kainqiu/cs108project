@@ -76,7 +76,7 @@ public class QServlet extends HttpServlet {
 			RequestDispatcher dispatch = request.getRequestDispatcher("chooseQuestionType.jsp");
 			dispatch.forward(request, response);
 		}else if(action.equals("Create & Finish Quiz")){
-			RequestDispatcher dispatch = request.getRequestDispatcher("optionsQuiz.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("finishCreationQuiz.jsp");
 			dispatch.forward(request, response); 
 		}
 	}
