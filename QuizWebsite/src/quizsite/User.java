@@ -81,12 +81,13 @@ public class User {
 		String password = generateHash(pw + salt);
 		System.out.println("hashed pw is  " + password);		
 		try {
-			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO users (username, password, salt, numNewMail) VALUES (?, ?, ?, ?)");
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement("INSERT INTO users (username, password, salt, numNewMail, isAdmin) VALUES (?, ?, ?, ?, ?)");
 			//preStmt.setInt(1, id);
 			preStmt.setString(1, username);
 			preStmt.setString(2, password);
 			preStmt.setString(3, salt);
 			preStmt.setInt(4, 0);
+			preStmt.setBoolean(5, false);
 			preStmt.executeUpdate();
 			System.out.println("in registerUser");
 			return true;
@@ -358,6 +359,22 @@ public class User {
 			return 0;
 		} 
 		return 0;
+	}
+	
+	static public boolean isUserAdmin(int userId, DBConnection dbCon) {
+		try {
+			String selectSQL = "SELECT isAdmin FROM users WHERE id = ?";
+			PreparedStatement preStmt = dbCon.getConnection().prepareStatement(selectSQL);
+			preStmt.setInt(1, userId);
+			ResultSet rs = preStmt.executeQuery();
+			if(rs.next()) {
+				return rs.getBoolean("isAdmin");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} 
+		return false;
 	}
 	
 }

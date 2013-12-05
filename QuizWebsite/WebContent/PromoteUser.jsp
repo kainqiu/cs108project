@@ -11,17 +11,18 @@ if(con == null) {
 	session.setAttribute("connection", con);
 }
 
-int quizId = Integer.parseInt(request.getParameter("id"));
+int userId = Integer.parseInt(request.getParameter("id"));
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Remove Quiz History</title>
+<link rel="stylesheet" href="/QuizWebsite/Home.css" type="text/css">
+<title>Promote User to Administrator</title>
 </head>
 <body>
-<p>Are you sure to remove all the histories of the quiz "<%= Quiz.getTitleById(quizId, con) %>" from the database?</p>
-<form action="RemoveQuizHistoryServlet" method="post">
-<input type="submit" value="Remove"/>
-<input name="quizIdToRemove" type="hidden" value="<%= quizId %>" />
+<p>Are you sure to promote the user "<%= User.getUsernameById(userId, con) %>" to administrator?</p>
+<form action="PromoteUserServlet" method="post">
+<input type="submit" value="Promote"/>
+<input name="userIdToPromote" type="hidden" value="<%= userId %>" />
 </form>
 <br />
 <a href="Admin.jsp">&lt;&lt; Back</a>

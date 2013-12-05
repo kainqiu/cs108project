@@ -82,6 +82,10 @@ body {
 	text-align: right;
 }
 
+td {
+	padding: 5px;
+}
+
 /*.pop_quiz {
 	color: red;
 	width: 24%;	

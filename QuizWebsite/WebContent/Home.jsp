@@ -24,6 +24,7 @@ ArrayList<Rank.QuizInfo> recentQuizList = Rank.getRecentCreatedQuiz(con);
 ArrayList<Rank.QuizInfo> recentCreatedByUserList = Rank.getQuizCreatedByUserId(con, currUser.getId());
 ArrayList<Rank.QuizInfo> recentTakenQuizByUserList = Rank.getRecentTakenQuizByUserId(con, currUser.getId());
 session.setAttribute("sortType", "score");
+ArrayList<Admin.AdminAnnounceInfo> announceList = Admin.getAllAdminAnnounce(con);
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -34,6 +35,11 @@ session.setAttribute("sortType", "score");
 <body>
 <p class="logout"><a href="Login.html">Logout</a></p>
 <h3>Hello, <%= currUser.getUsername() %>! Welcome to our quiz website!</h3>
+<%
+if(User.isUserAdmin(currUser.getId(), con)) {
+	out.println("<p><a href='Admin.jsp'>Go to Admin Page &gt;&gt;</a></p>");
+}
+%>
 
 <div class="msg">
 <p class="block_title">Mails Received
@@ -56,6 +62,18 @@ for(int i = 0; i < numNewMail; i++) {
 }
 %>
 <a href="AllMails.jsp">Check All Mails &gt;&gt;</a>
+</div>
+<br/><br/>
+<div class="msg">
+<p class="block_title">Admin Announcements</p>
+<table>
+<%
+for(int i = 0; i < announceList.size(); i++) {
+	Admin.AdminAnnounceInfo aai = announceList.get(i);
+	out.println("<tr><td class='each_history'><a href='User.jsp?id=" + aai.adminId + "'>" + User.getUsernameById(aai.adminId, con) + "</a></td><td> - " + aai.content + "</td></tr>");
+}
+%>
+</table>
 </div>
 
 <div class="lists">
